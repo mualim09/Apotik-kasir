@@ -46,7 +46,7 @@ Password : admin
 ** Jika ada issues, revisi atau update fitur silahkan pull request
 
 ## Contributors
-<a href="mailto:phiko-angga@gmail.com">Viko Anggara</a>
+<a href="mailto:phiko.angga@gmail.com">Viko Anggara</a>
 
 ## Donate Me 
 On >>> https://saweria.co/phikoangga
