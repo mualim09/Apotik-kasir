@@ -4,7 +4,16 @@ Source Code Aplikasi kasir apotik berbasis Website dibangun menggunakan :
 - MySQL
 - Bootstrap 4
 - Datatables Server Side
-- Form Input Autocomplete (seperti di halaman transaksi : pencarian barang, pelanggan, supplier, dll)
+
+##MODULES
+- Master : Barang, Pelanggan, Supplier, Pengguna
+- Transaksi : Pembelian, Penjualan, Retur Pembelian, Transfer Stok, Stok Opname
+- Laporan : Pembelian, Penjualan, Retur Pembelian, Transfer Stok, Penjualan per Barang, Stok Barang
+
+## NOTES
+- Form Input menggunakan Autocomplete (seperti di halaman transaksi : pencarian barang, pelanggan, supplier, dll)
+- Manajemen Stok menggunakan trigger Database untuk menambah dan mengurangi stok
+- Gudang masih statis berjumlah 2 gudang : gudang, etalase
 
 ## Setting Database
 File db terdapat di folder sql, silahkan import di mysql dan sesuaikan username dan password nya.
