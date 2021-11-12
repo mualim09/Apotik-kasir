@@ -11,6 +11,7 @@ Source Code Aplikasi kasir apotik berbasis Website dibangun menggunakan :
 - Laporan : Pembelian, Penjualan, Retur Pembelian, Transfer Stok, Penjualan per Barang, Stok Barang
 
 ## NOTES
+- Terdapat kata `Apotik` karena ada info2 spesifik terkait jenis obat, dll pada data barang.
 - Form Input menggunakan Autocomplete (seperti di halaman transaksi : pencarian barang, pelanggan, supplier, dll)
 - Manajemen Stok menggunakan trigger Database untuk menambah dan mengurangi stok
 - Gudang masih statis berjumlah 2 gudang : gudang, etalase
