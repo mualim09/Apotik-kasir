@@ -1,0 +1,132 @@
+
+<form action="<?php echo $action; ?>" method="post">
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Retur Pembelian Detail</h4>
+                    <div class="row">
+                            <div class="form-group col-md-3"><label>No Transaksi <?php echo form_error('no_transaksi') ?></label>
+                                <input readonly type="text" class="form-control  numeric" name="no_transaksi" id="no_transaksi" placeholder="Otomatis di generate" value="<?php echo $no_transaksi; ?>" />
+                            </div>
+                            <div class="form-group col-md-3"><label>Tgl Transaksi <?php echo form_error('tgl_transaksi') ?></label>
+                                <input required type="text" class="form-control tanggal" name="tgl_transaksi" id="tgl_transaksi" placeholder="Tgl Transaksi" value="<?php echo $tgl_transaksi; ?>" />
+                            </div>
+                            <div class="form-group col-md-3"><label>Supplier<?php echo form_error('supplier_id') ?></label>
+                                <input required type="text" class="form-control" name="supplier" id="supplier" placeholder="Supplier" value="<?php echo $supplier; ?>" />
+                                <input type="hidden" name="supplier_id" id="supplier_id" value="<?php echo $supplier_id; ?>" />
+                            </div>
+                            <div class="form-group col-md-3"><label>Keterangan<?php echo form_error('keterangan') ?></label>
+                                <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan" value="<?php echo $keterangan; ?>" />
+                            </div>
+                    </div>
+	
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">ITEM</h4>
+                <div class="table-responsive">
+                    <table class="table" id="mytable">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Barang</th>
+                          <th>Jumlah</th>
+                          <th>Satuan</th>
+                          <th>Harga Beli</th>
+                          <th>Diskon</th>
+                          <th>SubTotal</th>
+                          <th><a href="JavaScript:void(0);" onClick="tambah()"><i class="mdi mdi-cart-plus"></i></a></th>
+                        </tr>
+                      </thead>
+                      <tbody id="item">
+                      </tbody>
+                    </table>
+                  </div>
+	
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="offset-md-6 col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                
+                <div class="form-group">
+                    <p>TOTAL <span id="total_s" style="float:right">0</span></p>
+                    <input type="hidden" name="total" id="total" value="<?php echo $total; ?>" />
+                </div>
+                <input type="hidden" name="id_pembelian" value="<?php echo $id_retur_pembelian; ?>" /> 
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
+                    <button hidden type="button" class="btn btn-info" data-toggle="modal" data-target="#pembayaran">Payment</button>
+                    <a href="<?php echo site_url('transaksi/retur_pembelian') ?>" class="btn btn-default">Cancel</a>
+                </div>
+	
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
+
+  <!-- Modal -->
+  
+<!-- The Modal -->
+<div class="modal" id="pembayaran">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Pembayaran</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="grandtotal_alias" style="color:#30a5ff">TOTAL</label>
+                    <input readonly value="<?=$grandtotal_alias?>" type="text" class="form-control text-right numeric" name="grandtotal_alias" id="grandtotal_alias">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="bayar">Dibayar</label>
+                    <input onChange="bayar_change(this.value)" value="<?=$bayar?>" type="text" class="form-control text-right numeric" name="bayar" id="bayar">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="kembalian">Kembalian</label>
+                    <input readonly value="<?=$sisa?>" type="text" class="form-control text-right numeric" name="kembalian" id="kembalian">
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="bayarsubmit()" >Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+   
+</form>
+
+<script>
+  function bayarsubmit(){
+    $('form').submit();
+  }
+</script>

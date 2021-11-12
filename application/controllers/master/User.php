@@ -1,0 +1,160 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class User extends CI_Controller
+{
+    
+        
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('User_model');
+        $this->load->library('form_validation');
+		if($this->session->userdata('user_logedin') == false)redirect("login");
+    }
+
+    public function index()
+    {
+        $user = $this->User_model->get_all();
+
+        $data = array(
+            'user_data' => $user
+        );
+
+        $this->template->load('template','master/user/tb_user_list', $data);
+        $this->load->view('master/user/user_list_js');
+    }
+
+	public function user_get(){
+
+        $user = $this->User_model->get_all();
+        echo $user;
+	}
+
+    public function read($id) 
+    {
+        $row = $this->User_model->get_by_id($id);
+        if ($row) {
+            $data = array(
+		'id_user' => $row->id_user,
+		'username' => $row->username,
+		'password' => $row->password,
+		'level' => $row->level,
+		'nama_lengkap' => $row->nama_lengkap,
+	    );
+            $this->template->load('template','master/user/tb_user_read', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('master/user'));
+        }
+    }
+
+    public function create() 
+    {
+        $data = array(
+            'button' => 'Create',
+            'action' => site_url('master/user/create_action'),
+	    'id_user' => set_value('id_user'),
+	    'username' => set_value('username'),
+	    'password' => set_value('password'),
+	    'level' => set_value('level'),
+	    'nama_lengkap' => set_value('nama_lengkap'),
+	);
+        $this->template->load('template','master/user/tb_user_form', $data);
+    }
+    
+    public function create_action() 
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->create();
+        } else {
+            $data = array(
+		'username' => $this->input->post('username',TRUE),
+		'password' => $this->input->post('password',TRUE),
+		'level' => $this->input->post('level',TRUE),
+		'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
+	    );
+
+            $this->User_model->insert($data);
+            $this->session->set_flashdata('message', 'Create Record Success');
+            redirect(site_url('master/user'));
+        }
+    }
+    
+    public function update($id) 
+    {
+        $row = $this->User_model->get_by_id($id);
+
+        if ($row) {
+            $data = array(
+                'button' => 'Update',
+                'action' => site_url('master/user/update_action'),
+		'id_user' => set_value('id_user', $row->id_user),
+		'username' => set_value('username', $row->username),
+		'password' => set_value('password', $row->password),
+		'level' => set_value('level', $row->level),
+		'nama_lengkap' => set_value('nama_lengkap', $row->nama_lengkap),
+	    );
+            $this->template->load('template','master/user/tb_user_form', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('master/user'));
+        }
+    }
+    
+    public function update_action() 
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->update($this->input->post('id_user', TRUE));
+        } else {
+            $data = array(
+		'username' => $this->input->post('username',TRUE),
+		'password' => $this->input->post('password',TRUE),
+		'level' => $this->input->post('level',TRUE),
+		'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
+	    );
+
+            $this->User_model->update($this->input->post('id_user', TRUE), $data);
+            $this->session->set_flashdata('message', 'Update Record Success');
+            redirect(site_url('master/user'));
+        }
+    }
+    
+    public function delete($id) 
+    {
+        $row = $this->User_model->get_by_id($id);
+
+        if ($row) {
+            $this->User_model->delete($id);
+            $this->session->set_flashdata('message', 'Delete Record Success');
+            redirect(site_url('master/user'));
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('master/user'));
+        }
+    }
+
+    public function _rules() 
+    {
+	$this->form_validation->set_rules('username', 'username', 'trim|required');
+	$this->form_validation->set_rules('password', 'password', 'trim|required');
+	$this->form_validation->set_rules('level', 'level', 'trim|required');
+	$this->form_validation->set_rules('nama_lengkap', 'nama lengkap', 'trim|required');
+
+	$this->form_validation->set_rules('id_user', 'id_user', 'trim');
+	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+
+}
+
+/* End of file User.php */
+/* Location: ./application/controllers/User.php */
+/* Please DO NOT modify this information : */
+/* Generated by Harviacode Codeigniter CRUD Generator 2019-06-21 00:29:21 */
+/* http://harviacode.com */
