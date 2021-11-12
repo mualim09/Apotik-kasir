@@ -6,11 +6,6 @@ Source Code Aplikasi kasir apotik berbasis Website dibangun menggunakan :
 - Datatables Server Side
 - Form Input Autocomplete (seperti di halaman transaksi : pencarian barang, pelanggan, supplier, dll)
 
-<br>
-Modul :
-- Master : barang, pelanggan, supplier, pengguna
-<br>
-
 ## Setting Database
 File db terdapat di folder sql, silahkan import di mysql dan sesuaikan username dan password nya.
 
